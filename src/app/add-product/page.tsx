@@ -1,14 +1,44 @@
+import FormSubmitButton from "@/components/FormSubmitButton";
+import { prisma } from "@/lib/db/prisma";
+import { redirect } from "next/navigation";
+
+export const metadata = {
+  title: "Add Product - Bear Essentials Market",
+};
+
+async function addProduct(formData: FormData) {
+  "use server";
+
+  const name = formData.get("name") as string;
+  const description = formData.get("description") as string;
+  const imageUrl = formData.get("imageUrl") as string;
+  const price = Number(formData.get("price") || 0);
+
+  if (!name || !description || !imageUrl || !price) {
+    throw Error("All fields are required.");
+  }
+
+  await prisma.product.create({
+    data: {
+      name,
+      description,
+      imageUrl,
+      price,
+    },
+  });
+  redirect("/");
+}
+
 export default function AddProductPage() {
   return (
     <div>
-      <h1 className="text-lg mb-3 font-bold">Add Product</h1>
-      <form action="Post">
+      <h1 className="mb-3 text-lg font-bold">Add Product</h1>
+      <form action={addProduct}>
         <input
           required
-          type="text"
           name="name"
           placeholder="Name"
-          className="mb-3 w-full input input-bordered"
+          className="input input-bordered mb-3 w-full"
         />
         <textarea
           required
@@ -29,7 +59,11 @@ export default function AddProductPage() {
           placeholder="Price"
           className="input input-bordered mb-3 w-full"
           type="number"
+          min={0}
         />
+        <FormSubmitButton className="btn btn-block">
+          Add Product
+        </FormSubmitButton>
       </form>
     </div>
   );
