@@ -9,9 +9,9 @@ export const metadata = {
 async function addProduct(formData: FormData) {
   "use server";
 
-  const name = formData.get("name") as string;
-  const description = formData.get("description") as string;
-  const imageUrl = formData.get("imageUrl") as string;
+  const name = formData.get("name")?.toString();
+  const description = formData.get("description")?.toString();
+  const imageUrl = formData.get("imageUrl")?.toString();
   const price = Number(formData.get("price") || 0);
 
   if (!name || !description || !imageUrl || !price) {
