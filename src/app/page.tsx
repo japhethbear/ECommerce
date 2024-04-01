@@ -9,7 +9,7 @@ export default async function Home() {
   });
   return (
     <div>
-      <h1 className="mb-3 text-7xl font-bold">Bear Essentials Market</h1>
+      <h1 className="mb-3 text-7xl font-bold">The Bear Essentials Market</h1>
       <div className="hero rounded-xl bg-base-200">
         <div className="hero-content flex-col lg:flex-row">
           <Image
