@@ -1,18 +1,8 @@
 import { prisma } from "@/lib/db/prisma";
 import ProductCard from "@/components/ProductCard";
-import { Metadata } from "next";
 
 interface SearchPageProps {
   searchParams: { query: string };
-}
-
-export function generateMetaData({
-  searchParams: { query },
-}: SearchPageProps): Metadata {
-  return {
-    title: `Search: "${query}" - The Bear Essentials Market`,
-    description: `Search: "${query}" - The Bear Essentials Market`,
-  };
 }
 
 export default async function searchPage({
