@@ -2,7 +2,7 @@ import { prisma } from "@/lib/db/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextAuthOptions } from "next-auth";
 import { Adapter } from "next-auth/adapters";
-import NextAuth from "next-auth/next";
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { env } from "@/lib/env";
 import { mergeAnonymousCartIntoUserCart } from "@/lib/db/cart";
