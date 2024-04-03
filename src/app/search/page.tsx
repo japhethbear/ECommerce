@@ -33,7 +33,7 @@ export default async function searchPage({
       <div className="flex flex-col items-center text-center">
         <h1 className="text-7xl font-bold">No Results Found.</h1>
         <p className="text-2xl">
-          We couldn't find any products that matched your search.
+          We could not find any products that matched your search.
         </p>
       </div>
     );
