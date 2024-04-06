@@ -14,7 +14,7 @@ export default async function Home({
   const currentPage = parseInt(page);
 
   // Update this number if it goes to production //
-  const pageSize = 4;
+  const pageSize = 3;
 
   const heroItemCount = 1;
 
