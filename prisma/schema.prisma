@@ -20,6 +20,22 @@ model Product {
   @@map("products")
 }
 
+model DigitalProduct {
+  id                     String                 @id @default(auto()) @map("_id") @db.ObjectId
+  name                   String
+  priceInCents           Int
+  filePath               String
+  imagePath              String
+  description            String
+  isAvailableForPurchase Boolean                @default(true)
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+  Order                  Order[]
+  DownloadVerification   DownloadVerification[]
+
+  @@map("digitalproducts")
+}
+
 model Cart {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
   userId    String?    @db.ObjectId
@@ -83,6 +99,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Cart          Cart[]
+  orders        Order[]
 
   @@map("users")
 }
@@ -95,4 +112,29 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Order {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  pricePaidInCents Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  userId           String @db.ObjectId
+  digitalProductId String @db.ObjectId
+
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  digitalProduct DigitalProduct @relation(fields: [digitalProductId], references: [id], onDelete: Restrict)
+
+  @@map("orders")
+}
+
+model DownloadVerification {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  expiresAt        DateTime
+  createdAt        DateTime       @default(now())
+  digitalProductId String         @db.ObjectId
+  digitalProduct   DigitalProduct @relation(fields: [digitalProductId], references: [id], onDelete: Cascade)
+
+  @@map("downloadverifications")
 }
